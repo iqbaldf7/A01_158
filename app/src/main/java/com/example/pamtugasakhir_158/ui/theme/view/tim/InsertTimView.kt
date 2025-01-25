@@ -29,8 +29,9 @@ import com.example.pamtugasakhir_158.ui.theme.viewmodel.tim.InsertTimViewModel
 import kotlinx.coroutines.launch
 
 object DestinasiEntry: DestinasiNavigasi {
-    override val route = "item_entry"
-    override val titleRes = "Entry Tim"
+    override val route = "item"
+    override val titleRes = " entry tim"
+
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
