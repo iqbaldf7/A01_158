@@ -1,5 +1,5 @@
-package com.example.pamtugasakhir_158.ui.theme.viewmodel.tim
 
+package com.example.pamtugasakhir_158.ui.theme.viewmodel.tim
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import com.example.pamtugasakhir_158.model.Tim
