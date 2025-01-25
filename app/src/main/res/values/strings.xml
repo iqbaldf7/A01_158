@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">PamTugasAkhir_158</string>
+
     <string name="retry">Retry</string>
+
     <string name="loading">Loading</string>
 </resources>
