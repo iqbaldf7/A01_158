@@ -42,12 +42,14 @@ import com.example.pamtugasakhir_158.ui.theme.navigasi.DestinasiNavigasi
 import com.example.pamtugasakhir_158.ui.theme.viewmodel.tim.DetailTimViewModel
 import com.example.pamtugasakhir_158.ui.theme.viewmodel.tim.DetailUiState
 
+
 object DestinasiDetailTim : DestinasiNavigasi {
     override val route = "tim_detail"
     override val titleRes = "Detail Tim"
     const val TIM = "idTim"
     val routeWithArg = "$route/{$TIM}"
 }
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
