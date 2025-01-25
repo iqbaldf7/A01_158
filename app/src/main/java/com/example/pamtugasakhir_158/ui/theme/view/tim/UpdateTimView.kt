@@ -16,10 +16,11 @@ import com.example.pamtugasakhir_158.ui.theme.viewmodel.tim.UpdateTimViewModel
 import kotlinx.coroutines.launch
 
 object DestinasiUpdate : DestinasiNavigasi {
-    override val route = "update"
+    override val route = " update"
     override val titleRes = "Update Tim"
-    const val ID_TIM = "id_tim"
+    const val  ID_TIM = "id_tim"
     val routeWithArg = "$route/{$ID_TIM}"
+
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
