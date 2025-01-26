@@ -1,6 +1,7 @@
 package com.example.pamtugasakhir_158.service
 
 import com.example.pamtugasakhir_158.model.AnggotaTim
+import com.example.pamtugasakhir_158.ui.theme.viewmodel.anggotaTim.Anggota
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
@@ -23,10 +24,10 @@ interface AnggotaService {
     suspend fun getAnggotaByID(@Query("id_anggota") id_anggota: String): AnggotaTim
 
     @POST("insertanggota.php")
-    suspend fun insertAnggota(@Body anggota: AnggotaTim)
+    suspend fun insertAnggota(@Body anggota: Anggota)
 
     @PUT("editanggota.php/{id_anggota}")
-    suspend fun updateAnggota(@Query("id_anggota") id_anggota: String, @Body anggota: AnggotaTim)
+    suspend fun updateAnggota(@Query("id_anggota") id_anggota: String, @Body anggota: Anggota)
 
     @DELETE("deleteanggota.php/{id_anggota}")
     suspend fun deleteAnggota(@Query("id_anggota") id_anggota: String): retrofit2.Response<Void>
