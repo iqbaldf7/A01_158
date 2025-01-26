@@ -2,6 +2,7 @@ package com.example.pamtugasakhir_158.repository
 
 import com.example.pamtugasakhir_158.model.AnggotaTim
 import com.example.pamtugasakhir_158.service.AnggotaService
+import com.example.pamtugasakhir_158.ui.theme.viewmodel.anggotaTim.Anggota
 
 interface AnggotaRepository {
 
@@ -9,9 +10,9 @@ interface AnggotaRepository {
 
     suspend fun getAnggotaByID(id_anggota: String): AnggotaTim
 
-    suspend fun insertAnggota(anggota: AnggotaTim)
+    suspend fun insertAnggota(anggota: Anggota)
 
-    suspend fun updateAnggota(id_anggota: String, anggota: AnggotaTim)
+    suspend fun updateAnggota(id_anggota: String, anggota: Anggota)
 
     suspend fun deleteAnggota(id_anggota: String)
 }
@@ -23,15 +24,14 @@ class NetworkAnggotaRepository(
     override suspend fun getAllAnggota(): List<AnggotaTim> =
         anggotaApiService.getAllAnggota()
 
-    override suspend fun getAnggotaByID(id_anggota: String): AnggotaTim {
-        return anggotaApiService.getAnggotaByID(id_anggota)
-    }
+    override suspend fun getAnggotaByID(id_anggota: String): AnggotaTim =
+        anggotaApiService.getAnggotaByID(id_anggota)
 
-    override suspend fun insertAnggota(anggota: AnggotaTim) {
+    override suspend fun insertAnggota(anggota: Anggota) {
         anggotaApiService.insertAnggota(anggota)
     }
 
-    override suspend fun updateAnggota(id_anggota: String, anggota: AnggotaTim) {
+    override suspend fun updateAnggota(id_anggota: String, anggota: Anggota) {
         anggotaApiService.updateAnggota(id_anggota, anggota)
     }
 
@@ -41,7 +41,6 @@ class NetworkAnggotaRepository(
             if (!response.isSuccessful) {
                 throw Exception("Failed to delete anggota. HTTP Status code: ${response.code()}")
             } else {
-                response.message()
                 println(response.message())
             }
         } catch (e: Exception) {
