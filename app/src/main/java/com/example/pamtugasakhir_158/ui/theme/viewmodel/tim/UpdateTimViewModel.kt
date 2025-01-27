@@ -48,9 +48,9 @@ class UpdateTimViewModel(
     )
 
     fun Tim.toInsertTimUiEvent(): InsertTimUiEvent = InsertTimUiEvent(
-        id_tim = id_tim,
-        nama_tim = nama_tim,
-        deskripsi_tim = deskripsi_tim
+        idTim = idTim,
+        namatim = namatim,
+        deskripsitim = deskripsitim
     )
 
 }
