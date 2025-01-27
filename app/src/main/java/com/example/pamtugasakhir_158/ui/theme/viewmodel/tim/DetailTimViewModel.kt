@@ -1,60 +1,39 @@
 package com.example.pamtugasakhir_158.ui.theme.viewmodel.tim
 
-import androidx.compose.runtime.getValue
-import com.example.pamtugasakhir_158.model.Tim
-import com.example.pamtugasakhir_158.repository.TimRepository
-import com.example.pamtugasakhir_158.ui.theme.view.tim.DestinasiDetailTim
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import coil.network.HttpException
+import com.example.pamtugasakhir_158.model.Tim
+import com.example.pamtugasakhir_158.repository.TimRepository
 import kotlinx.coroutines.launch
 import okio.IOException
 
-sealed class DetailUiState {
-    data class Success(val tim: Tim) : DetailUiState()
-    object Error : DetailUiState()
-    object Loading : DetailUiState()
+class DetailTimViewModelFactory(private val repository: TimRepository) : ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(DetailTimViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST")
+            return DetailTimViewModel(repository) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
+    }
 }
 
-class DetailTimViewModel(
-    savedStateHandle: SavedStateHandle,
-    private val timRepository: TimRepository
-) : ViewModel() {
-    var timDetailState: DetailUiState by mutableStateOf(DetailUiState.Loading)
-        private set
+class DetailTimViewModel(private val tim: TimRepository) : ViewModel() {
 
-    private val _idTim: String = checkNotNull(savedStateHandle[DestinasiDetailTim.TIM])
-
-    init {
-        getTimById()
-    }
-
-    fun getTimById() {
+    // Mengambil data anggota berdasarkan id anggota
+    fun getMahasiswabyNim(idTim: String, onResult: (Tim?) -> Unit) {
         viewModelScope.launch {
-            timDetailState = DetailUiState.Loading
-            timDetailState = try {
-                val fetchedTim = timRepository.getTimByID(_idTim)
-                DetailUiState.Success(fetchedTim)
+            val tim = try {
+                tim.getTimByID(idTim)
             } catch (e: IOException) {
-                DetailUiState.Error
+                null // Tangani error jika ada masalah koneksi
             } catch (e: HttpException) {
-                DetailUiState.Error
+                null // Tangani error jika respons dari server salah
             }
+            onResult(tim)
         }
     }
 
-    fun deleteTim() {
-        viewModelScope.launch {
-            try {
-                timRepository.deleteTim(_idTim)
-            } catch (e: IOException) {
 
-            } catch (e: HttpException) {
-
-            }
-        }
-    }
 }
