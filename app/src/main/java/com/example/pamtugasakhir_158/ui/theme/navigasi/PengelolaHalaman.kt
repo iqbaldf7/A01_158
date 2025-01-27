@@ -1,48 +1,60 @@
 package com.example.pamtugasakhir_158.ui.theme.navigasi
 
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.pamtugasakhir_158.depedenciesinjection.AppContainer
+import com.example.pamtugasakhir_158.ui.theme.view.home.DestinasiHome
+import com.example.pamtugasakhir_158.ui.theme.view.home.HomeScreen
 import com.example.pamtugasakhir_158.ui.theme.view.tim.DestinasiDetailTim
 import com.example.pamtugasakhir_158.ui.theme.view.tim.DestinasiEntry
+import com.example.pamtugasakhir_158.ui.theme.view.tim.DestinasiHomeTim
 import com.example.pamtugasakhir_158.ui.theme.view.tim.DestinasiUpdate
-import com.example.pamtugasakhir_158.ui.theme.view.tim.DetailViewTim
+import com.example.pamtugasakhir_158.ui.theme.view.tim.DetailTim
+import com.example.pamtugasakhir_158.ui.theme.view.tim.HomeViewTim
 import com.example.pamtugasakhir_158.ui.theme.view.tim.InsertTimScreen
 import com.example.pamtugasakhir_158.ui.theme.view.tim.UpdateScreen
-import com.example.pamtugasakhir_158.ui.theme.viewmodel.tim.DestinasiHomeTim
-import com.example.pamtugasakhir_158.ui.theme.viewmodel.tim.HomeViewTim
+
 
 
 @Composable
 fun PengelolaHalaman(
+    appContainer: AppContainer,
     navController: NavHostController = rememberNavController(),
     modifier: Modifier = Modifier
 ) {
     NavHost(
         navController = navController,
-        startDestination = DestinasiHomeTim.route,
+        startDestination = DestinasiHome.route,
         modifier = modifier
     ) {
+
+        composable(DestinasiHome.route) {
+            HomeScreen(
+                navigateToTim = {navController.navigate(DestinasiHomeTim.route)},
+                navigateToAnggota = {},
+                navigateToTugas = {},
+                navigateToProyek = {}
+
+            )
+        }
         // Halaman Home
         composable(DestinasiHomeTim.route) {
             HomeViewTim(
                 navigateToItemEntry = { navController.navigate(DestinasiEntry.route) },
-                onDetailClick = { idPekerja ->
-                    if (idPekerja.isNotBlank()) {
-                        navController.navigate("${DestinasiDetailTim.route}/$idPekerja")
-                    } else {
-                        // Tampilkan pesan kesalahan atau feedback
-                    }
+                onDetailClick = { idTim -> navController.navigate("${DestinasiDetailTim.route}/$idTim")
                 }
             )
         }
 
-        // Halaman Insert Pekerja
+        // Halaman Insert Pekerjaid
         composable(route = DestinasiEntry.route) {
             InsertTimScreen(
                 navigateBack = { navController.popBackStack() }
@@ -50,22 +62,20 @@ fun PengelolaHalaman(
         }
 
         // Halaman Detail Pekerja
-        composable(
-            route = DestinasiDetailTim.routeWithArg,
-            arguments = listOf(
-                navArgument(DestinasiDetailTim.TIM) { type = NavType.StringType }
-            )
-        ) { backStackEntry ->
-            val idPekerja = backStackEntry.arguments?.getString(DestinasiDetailTim.TIM)
-            if (!idPekerja.isNullOrBlank()) {
-                DetailViewTim(
-                    navigateBack = { navController.popBackStack() },
-                    navigateToEdit = { navController.navigate("${DestinasiUpdate.route}/$idPekerja") }
+        composable(DestinasiDetailTim.route + "/{id_tim}") { navBackStackEntry ->
+            val idTim = navBackStackEntry.arguments?.getString("id_tim")
+            if (idTim != null) {
+                DetailTim(
+                    idTim = idTim,
+                    repository = appContainer.timRepository, // Ganti dengan instance repository yang sesuai
+                    navigateBack = { navController.popBackStack() } // Navigasi kembali
                 )
             } else {
-                navController.popBackStack() // Argumen null atau kosong, kembali ke layar sebelumnya
+                // Handle kasus di mana idTim null, jika diperlukan
+                Text("ID Tim tidak ditemukan")
             }
         }
+
 
         // Halaman Update Pekerja
         composable(
