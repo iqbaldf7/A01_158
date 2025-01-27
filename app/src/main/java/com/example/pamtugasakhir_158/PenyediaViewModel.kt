@@ -5,8 +5,6 @@ import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
-import com.example.pamtugasakhir_158.ui.theme.viewmodel.anggotaTim.HomeAnggotaViewModel
-import com.example.pamtugasakhir_158.ui.theme.viewmodel.anggotaTim.InsertAnggotaViewModel
 import com.example.pamtugasakhir_158.ui.theme.viewmodel.tim.DetailTimViewModel
 import com.example.pamtugasakhir_158.ui.theme.viewmodel.tim.HomeTimViewModel
 import com.example.pamtugasakhir_158.ui.theme.viewmodel.tim.InsertTimViewModel
@@ -16,10 +14,9 @@ object PenyediaViewModel {
     val Factory = viewModelFactory {
         initializer { HomeTimViewModel(ProyekApplications().container.timRepository) }
         initializer { InsertTimViewModel(ProyekApplications().container.timRepository) }
-        initializer { DetailTimViewModel(createSavedStateHandle(),ProyekApplications().container.timRepository) }
+        initializer { DetailTimViewModel(ProyekApplications().container.timRepository) }
         initializer { UpdateTimViewModel(createSavedStateHandle(),ProyekApplications().container.timRepository) }
-        initializer { HomeAnggotaViewModel(ProyekApplications().container.anggotaRepository) }
-        initializer { InsertAnggotaViewModel(ProyekApplications().container.anggotaRepository) }
+
     }
 }
 
