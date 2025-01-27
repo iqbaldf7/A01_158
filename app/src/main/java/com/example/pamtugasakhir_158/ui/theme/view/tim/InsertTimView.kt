@@ -110,8 +110,8 @@ fun FormInputTim(
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         OutlinedTextField(
-            value = insertUiEvent.id_tim,
-            onValueChange = { onValueChange(insertUiEvent.copy(id_tim = it)) },
+            value = insertUiEvent.idTim,
+            onValueChange = { onValueChange(insertUiEvent.copy(idTim = it)) },
             label = { Text("ID Tim") },
             modifier = Modifier.fillMaxWidth(),
             enabled = enabled,
@@ -119,8 +119,8 @@ fun FormInputTim(
         )
 
         OutlinedTextField(
-            value = insertUiEvent.nama_tim,
-            onValueChange = { onValueChange(insertUiEvent.copy(nama_tim = it)) },
+            value = insertUiEvent.namatim,
+            onValueChange = { onValueChange(insertUiEvent.copy(namatim = it)) },
             label = { Text("Nama Tim") },
             modifier = Modifier.fillMaxWidth(),
             enabled = enabled,
@@ -128,8 +128,8 @@ fun FormInputTim(
         )
 
         OutlinedTextField(
-            value = insertUiEvent.deskripsi_tim,
-            onValueChange = { onValueChange(insertUiEvent.copy(deskripsi_tim = it)) },
+            value = insertUiEvent.deskripsitim,
+            onValueChange = { onValueChange(insertUiEvent.copy(deskripsitim = it)) },
             label = { Text("Deskripsi Tim") },
             modifier = Modifier.fillMaxWidth(),
             enabled = enabled,

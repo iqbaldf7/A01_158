@@ -34,13 +34,13 @@ data class InsertTimUiState(
 )
 
 data class InsertTimUiEvent(
-    val id_tim: String = "",
-    val nama_tim: String = "",
-    val deskripsi_tim: String = "",
+    val idTim: String = "",
+    val namatim: String = "",
+    val deskripsitim: String = "",
 )
 
 fun InsertTimUiEvent.toTim(): Tim = Tim(
-    id_tim = id_tim,
-    nama_tim = nama_tim,
-    deskripsi_tim = deskripsi_tim
+    idTim = idTim,
+    namatim = namatim,
+    deskripsitim = deskripsitim
 )
