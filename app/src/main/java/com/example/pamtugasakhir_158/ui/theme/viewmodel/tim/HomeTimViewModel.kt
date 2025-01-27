@@ -65,7 +65,7 @@ class HomeTimViewModel(private val timRepository: TimRepository): ViewModel(){
         viewModelScope.launch {
             timUiState = HomeTimUiState.Loading
             timUiState = try {
-                HomeTimUiState.Success(timRepository.getAllTim())
+                HomeTimUiState.Success(timRepository.getAllTim().data)
             } catch (e: IOException){
                 HomeTimUiState.Error
             } catch (e: HttpException){
@@ -74,10 +74,10 @@ class HomeTimViewModel(private val timRepository: TimRepository): ViewModel(){
         }
     }
 
-    fun deleteTim(id_tim: String){
+    fun deleteTim(idtim: String){
         viewModelScope.launch {
             try {
-                timRepository.deleteTim(id_tim)
+                timRepository.deleteTim(idtim)
             } catch (e: IOException) {
                 HomeTimUiState.Error
             }catch (e : HttpException){
@@ -87,161 +87,4 @@ class HomeTimViewModel(private val timRepository: TimRepository): ViewModel(){
     }
 }
 
-object DestinasiHomeTim : DestinasiNavigasi {
-    override val route ="home"
-    override val titleRes = "Home Tim"
-}
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun HomeViewTim(
-    navigateToItemEntry: () -> Unit,
-    modifier: Modifier = Modifier,
-    onDetailClick: (String) -> Unit = {},
-    viewModel: HomeTimViewModel = viewModel(factory = PenyediaViewModel.Factory)
-) {
-    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
-    Scaffold(
-        modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
-        topBar = {
-            CostumeTopAppBar(
-                title = DestinasiHomeTim.titleRes,
-                canNavigateBack = false,
-                scrollBehavior = scrollBehavior,
-                onRefresh = {
-                    viewModel.getTim()
-                }
-            )
-        },
-        floatingActionButton = {
-            FloatingActionButton(
-                onClick = navigateToItemEntry,
-                shape = MaterialTheme.shapes.medium,
-                modifier = Modifier.padding(18.dp)
-            ) {
-                Icon(imageVector = Icons.Default.Add, contentDescription = "Add Tim")
-            }
-        },
-    ) { innerPadding ->
-        HomeTimStatus(
-            homeTimUiState = viewModel.timUiState,
-            retryAction = { viewModel.getTim() },
-            modifier = Modifier.padding(innerPadding),
-            onDetailClick = onDetailClick,
-            onDeleteClick = { tim ->
-                viewModel.deleteTim(tim.id_tim)
-                viewModel.getTim()
-            }
-        )
-    }
-}
-
-
-@Composable
-fun HomeTimStatus(
-    homeTimUiState: HomeTimUiState,
-    retryAction: () -> Unit,
-    modifier: Modifier = Modifier,
-    onDeleteClick: (Tim) -> Unit = {},
-    onDetailClick: (String) -> Unit
-) {
-    when (homeTimUiState) {
-        is HomeTimUiState.Loading -> OnLoading(modifier = modifier.fillMaxSize())
-        is HomeTimUiState.Success ->
-            if (homeTimUiState.Tim.isEmpty()) {
-                Box(
-                    modifier = modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text(text = "Tidak ada data Tim")
-                }
-            } else {
-                TimLayout(
-                    tim = homeTimUiState.Tim,
-                    modifier = modifier.fillMaxWidth(),
-                    onDetailClick = {
-                        onDetailClick(it.id_tim)
-                    },
-                    onDeleteClick = { tim ->
-                        onDeleteClick(tim)
-                    }
-                )
-            }
-        is HomeTimUiState.Error -> OnError(
-            retryAction,
-            modifier = modifier.fillMaxSize()
-        )
-    }
-}
-
-
-@Composable
-fun TimLayout(
-    tim: List<Tim>,
-    modifier: Modifier = Modifier,
-    onDetailClick:(Tim)->Unit,
-    onDeleteClick: (Tim) -> Unit = {}
-){
-    LazyColumn(
-        modifier = modifier,
-        contentPadding = PaddingValues(16.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp)
-    ) {
-        items(tim){ data ->
-            TimCard(
-                tim = data,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .clickable(){onDetailClick(data)},
-                onDeleteClick ={
-                    onDeleteClick(data)
-                }
-            )
-
-        }
-    }
-}
-
-@Composable
-fun TimCard(
-    tim: Tim,
-    modifier: Modifier = Modifier,
-    onDeleteClick:(Tim)->Unit={}
-){
-    Card(
-        modifier = modifier,
-        shape = MaterialTheme.shapes.medium,
-        elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
-    ) {
-        Column(
-            modifier = Modifier.padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(
-                    text = tim.nama_tim,
-                    style = MaterialTheme.typography.titleLarge
-                )
-                Spacer(Modifier.weight(1f))
-                IconButton(onClick = {onDeleteClick(tim)}) {
-                    Icon(
-                        imageVector = Icons.Default.Delete,
-                        contentDescription = null,
-                    )
-                }
-            }
-
-            Text(
-                text = "ID: ${tim.id_tim}",
-                style = MaterialTheme.typography.titleMedium
-            )
-            Text(
-                text = "Deskripsi: ${tim.deskripsi_tim}",
-                style = MaterialTheme.typography.bodyMedium
-            )
-        }
-    }
-}

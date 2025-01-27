@@ -86,7 +86,7 @@ fun HomeViewTim(
             modifier = Modifier.padding(innerPadding),
             onDetailClick = onDetailClick,
             onDeleteClick = { tim ->
-                viewModel.deleteTim(tim.id_tim)
+                viewModel.deleteTim(tim.idTim)
                 viewModel.getTim()
             }
         )
@@ -117,7 +117,7 @@ fun HomeTimStatus(
                     tim = homeTimUiState.Tim,
                     modifier = modifier.fillMaxWidth(),
                     onDetailClick = {
-                        onDetailClick(it.id_tim)
+                        onDetailClick(it.idTim)
                     },
                     onDeleteClick = { tim ->
                         onDeleteClick(tim)
@@ -203,7 +203,7 @@ fun TimCard(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = tim.nama_tim,
+                    text = tim.namatim,
                     style = MaterialTheme.typography.titleLarge
                 )
                 Spacer(Modifier.weight(1f))
@@ -216,11 +216,11 @@ fun TimCard(
             }
 
             Text(
-                text = "ID: ${tim.id_tim}",
+                text = "ID: ${tim.idTim}",
                 style = MaterialTheme.typography.titleMedium
             )
             Text(
-                text = "Deskripsi: ${tim.deskripsi_tim}",
+                text = "Deskripsi: ${tim.deskripsitim}",
                 style = MaterialTheme.typography.bodyMedium
             )
         }
