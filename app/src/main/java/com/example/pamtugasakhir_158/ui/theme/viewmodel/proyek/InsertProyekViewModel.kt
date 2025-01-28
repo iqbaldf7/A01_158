@@ -36,16 +36,16 @@ data class InsertProyekUiState(
 data class InsertProyekUiEvent(
     val idProyek: String = "",
     val namaProyek: String = "",
-    val deskripsiProyek: String = "",
+    val deksripsiProyek: String = "",
     val tanggalMulai: String = "",
     val tanggalBerakhir: String = "",
-    val statusProyek: String = "Aktif"
+    val statusProyek: String = ""
 )
 
 fun InsertProyekUiEvent.toProyek(): Proyek = Proyek(
     idProyek = idProyek,
     namaProyek = namaProyek,
-    deskripsiProyek = deskripsiProyek,
+    deksripsiProyek = deksripsiProyek,
     tanggalMulai = tanggalMulai,
     tanggalBerakhir = tanggalBerakhir,
     statusProyek = statusProyek
