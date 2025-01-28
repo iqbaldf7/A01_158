@@ -100,8 +100,6 @@ fun PengelolaHalaman(
                 navController.popBackStack() // Argumen null atau kosong, kembali ke layar sebelumnya
             }
         }
-
-
         // Halaman Home
         composable(DestinasiHomeProyek.route) {
             HomeViewProyek(
@@ -130,9 +128,14 @@ fun PengelolaHalaman(
                 )
             } else {
                 // Handle kasus di mana idTim null, jika diperlukan
-                Text("ID Proyek tidak ditemukan")
+                Text("ID Proyek  tidak ditemukan")
             }
         }
+
+
+
+
+
 
 
 
