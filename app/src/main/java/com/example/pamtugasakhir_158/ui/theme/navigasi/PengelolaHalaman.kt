@@ -40,104 +40,76 @@ fun PengelolaHalaman(
         startDestination = DestinasiHome.route,
         modifier = modifier
     ) {
-
+        // Halaman Home
         composable(DestinasiHome.route) {
             HomeScreen(
                 navigateToTim = { navController.navigate(DestinasiHomeTim.route) },
-                navigateToProyek = {navController.navigate(DestinasiHomeProyek.route) },
+                navigateToProyek = { navController.navigate(DestinasiHomeProyek.route) },
                 navigateToTugas = {},
-                navigateToAnggota = {},
-
-                )
+                navigateToAnggota = {}
+            )
         }
-        // Halaman Home
+
+        // Halaman Home Tim
         composable(DestinasiHomeTim.route) {
             HomeViewTim(
-                navigateToItemEntry = { navController.navigate(DestinasiEntry.route) },
+                navigateToItemEntry = { navController.navigate("insert_tim") },
                 onDetailClick = { idTim ->
                     navController.navigate("${DestinasiDetailTim.route}/$idTim")
                 }
             )
         }
 
-        // Halaman Insert Pekerjaid
-        composable(route = DestinasiEntry.route) {
+        // Halaman Insert Tim
+        composable(route = "insert_tim") {
             InsertTimScreen(
                 navigateBack = { navController.popBackStack() }
             )
         }
 
-        // Halaman Detail Pekerja
+        // Halaman Detail Tim
         composable(DestinasiDetailTim.route + "/{id_tim}") { navBackStackEntry ->
             val idTim = navBackStackEntry.arguments?.getString("id_tim")
             if (idTim != null) {
                 DetailTim(
                     idTim = idTim,
-                    repository = appContainer.timRepository, // Ganti dengan instance repository yang sesuai
-                    navigateBack = { navController.popBackStack() } // Navigasi kembali
+                    repository = appContainer.timRepository,
+                    navigateBack = { navController.popBackStack() }
                 )
             } else {
-                // Handle kasus di mana idTim null, jika diperlukan
                 Text("ID Tim tidak ditemukan")
             }
         }
 
-
-        // Halaman Update Pekerja
-        composable(
-            route = DestinasiUpdate.routeWithArg,
-            arguments = listOf(
-                navArgument(DestinasiUpdate.ID_TIM) { type = NavType.StringType }
-            )
-        ) { backStackEntry ->
-            val idTim = backStackEntry.arguments?.getString(DestinasiUpdate.ID_TIM)
-            if (!idTim.isNullOrBlank()) {
-                UpdateScreen(
-                    navigateBack = { navController.popBackStack() },
-                    onNavigate = { navController.popBackStack() }
-                )
-            } else {
-                navController.popBackStack() // Argumen null atau kosong, kembali ke layar sebelumnya
-            }
-        }
-        // Halaman Home
+        // Halaman Home Proyek
         composable(DestinasiHomeProyek.route) {
             HomeViewProyek(
-                navigateToItemEntry = { navController.navigate(DestinasiEntry.route) },
+                navigateToItemEntry = { navController.navigate("insert_proyek") },
                 onDetailClick = { idProyek ->
                     navController.navigate("${DestinasiDetailProyek.route}/$idProyek")
                 }
             )
         }
 
-        // Halaman Insert Pekerjaid
-        composable(route = DestinasiEntry.route) {
+        // Halaman Insert Proyek
+        composable(route = "insert_proyek") {
             InsertProyekScreen(
                 navigateBack = { navController.popBackStack() }
             )
         }
 
-        // Halaman Detail Pekerja
+        // Halaman Detail Proyek
         composable(DestinasiDetailProyek.route + "/{id_proyek}") { navBackStackEntry ->
             val idProyek = navBackStackEntry.arguments?.getString("id_proyek")
             if (idProyek != null) {
                 DetailProyek(
                     idProyek = idProyek,
-                    repository = appContainer.proyekRepository, // Ganti dengan instance repository yang sesuai
-                    navigateBack = { navController.popBackStack() } // Navigasi kembali
+                    repository = appContainer.proyekRepository,
+                    navigateBack = { navController.popBackStack() }
                 )
             } else {
-                // Handle kasus di mana idTim null, jika diperlukan
-                Text("ID Proyek  tidak ditemukan")
+                Text("ID Proyek tidak ditemukan")
             }
         }
-
-
-
-
-
-
-
-
     }
 }
