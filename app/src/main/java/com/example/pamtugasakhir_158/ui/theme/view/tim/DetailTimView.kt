@@ -43,13 +43,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.pamtugasakhir_158.PenyediaViewModel
 import com.example.pamtugasakhir_158.model.Tim
 import com.example.pamtugasakhir_158.repository.TimRepository
 import com.example.pamtugasakhir_158.ui.theme.costumwidget.CostumeTopAppBar
 import com.example.pamtugasakhir_158.ui.theme.navigasi.DestinasiNavigasi
 import com.example.pamtugasakhir_158.ui.theme.viewmodel.tim.DetailTimViewModel
 import com.example.pamtugasakhir_158.ui.theme.viewmodel.tim.DetailTimViewModelFactory
+
 
 object DestinasiDetailTim : DestinasiNavigasi {
     override val route = "timdetail"
@@ -97,7 +97,7 @@ fun DetailTim(idTim: String,
                 DetailContentModern(tim = tim!!, modifier = Modifier.padding(innerPadding))
             } else {
                 Box(modifier = Modifier.fillMaxSize().padding(innerPadding), contentAlignment = Alignment.Center) {
-                    Text("Mahasiswa tidak ditemukan")
+                    Text("tim tidak ditemukan")
                 }
             }
         }
@@ -257,30 +257,7 @@ fun DetailContent(tim: Tim, modifier: Modifier = Modifier) {
                     fontSize = 9.sp,
                     color = Color.White
                 )
-                Text(
-                    text = "Judul",
-                    modifier = Modifier.weight(1f).padding(8.dp),
-                    fontSize = 9.sp,
-                    color = Color.White
-                )
-                Text(
-                    text = "Penulis",
-                    modifier = Modifier.weight(1f).padding(8.dp),
-                    fontSize = 9.sp,
-                    color = Color.White
-                )
-                Text(
-                    text = "Kategori",
-                    modifier = Modifier.weight(1f).padding(8.dp),
-                    fontSize = 9.sp,
-                    color = Color.White
-                )
-                Text(
-                    text = "Status",
-                    modifier = Modifier.weight(1f).padding(8.dp),
-                    fontSize = 9.sp,
-                    color = Color.White
-                )
+
             }
 
             // Baris Detail Tim
