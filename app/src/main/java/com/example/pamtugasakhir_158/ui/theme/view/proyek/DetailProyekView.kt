@@ -139,7 +139,7 @@ fun DetailContentModern(proyek: Proyek, modifier: Modifier = Modifier) {
         listOf(
             "ID Proyek" to proyek.idProyek,
             "Nama Proyek" to proyek.namaProyek,
-            "Deskripsi" to proyek.deksripsiProyek,
+            "Deksripsi" to proyek.deksripsiProyek,
             "Tanggal Mulai" to proyek.tanggalMulai.toString(),
             "Tanggal Berakhir" to proyek.tanggalBerakhir.toString(),
             "Status Proyek" to proyek.statusProyek
