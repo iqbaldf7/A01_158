@@ -54,7 +54,7 @@ class UpdateProyekViewModel(
     fun Proyek.toInsertProyekUiEvent(): InsertProyekUiEvent = InsertProyekUiEvent(
         idProyek = idProyek,
         namaProyek = namaProyek,
-        deskripsiProyek = deskripsiProyek,
+        deksripsiProyek = deksripsiProyek,
         tanggalMulai = tanggalMulai,
         tanggalBerakhir = tanggalBerakhir,
         statusProyek = statusProyek
