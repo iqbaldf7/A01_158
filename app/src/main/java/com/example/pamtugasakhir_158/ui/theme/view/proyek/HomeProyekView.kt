@@ -50,7 +50,7 @@ import com.example.pamtugasakhir_158.ui.theme.viewmodel.tim.HomeTimUiState
 import com.example.pamtugasakhir_158.ui.theme.viewmodel.tim.HomeTimViewModel
 
 object DestinasiHomeProyek : DestinasiNavigasi {
-    override val route = "home"
+    override val route = "home_proyek"
     override val titleRes = "Home Proyek"
 }
 
@@ -198,8 +198,20 @@ fun ProyekCard(
                 style = MaterialTheme.typography.titleMedium
             )
             Text(
-                text = "Deskripsi: ${proyek.deskripsiProyek}",
+                text = "NamaProyek: ${proyek.namaProyek}",
                 style = MaterialTheme.typography.bodyMedium
+            )
+            Text(
+                text = "Deskripsi: ${proyek.deksripsiProyek}",
+                style = MaterialTheme.typography.bodyMedium
+            )
+            Text(
+                text = "TanggalMulai: ${proyek.tanggalMulai}",
+                style = MaterialTheme.typography.bodySmall
+            )
+            Text(
+                text = "TanggalBerakhir: ${proyek.tanggalBerakhir}",
+                style = MaterialTheme.typography.bodySmall
             )
             Text(
                 text = "Status: ${proyek.statusProyek}",
